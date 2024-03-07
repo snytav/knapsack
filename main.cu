@@ -29,7 +29,7 @@ int warshall_test()
 	 if((f_out=fopen(fout,"wt"))==NULL)return 0;
 	 fprintf(f_out, "graph: |V|= %d |E|= %d \n", M,eds);
 	 printf( "graph: |V|= %d |E|= %d \n", M,eds);
-	 struct timeval tv1,tv2,tv3;
+//	 struct timeval tv1,tv2,tv3;
 	 	 	 cudaEvent_t start, stop;
 	 	     cudaEventCreate(&start);
 	 	     cudaEventCreate(&stop);
@@ -64,10 +64,10 @@ int warshall_test()
 
      tab->readFromFileListAd_or(fin,& eds);
      puts("file was read");
-     	 gettimeofday(&tv2,NULL);
+//     	 gettimeofday(&tv2,NULL);
      	cudaEventRecord(start, 0);
      	 warshall_c(tab);
-     	 gettimeofday(&tv3,NULL);
+//     	 gettimeofday(&tv3,NULL);
      	 cudaEventRecord(stop, 0);
      	cudaEventSynchronize(stop);
      	cudaEventElapsedTime(&elapsedTime1, start, stop);// in 0.001 sec
@@ -217,18 +217,18 @@ int DFS_test()
 	 code->GetRow(root,i);
 	 FILE *f_out;
 	 double tt;
-	 struct timeval tv1,tv2;
+//	 struct timeval tv1,tv2;
 	 if((f_out=fopen("res_info_DFS-100000.dat","wt"))==NULL)return 0;
 		 fprintf(f_out, "graph: |V|= %d |E|= %d \n", VER,LENGTH1);
 
-	 gettimeofday(&tv1,NULL);
+//	 gettimeofday(&tv1,NULL);
 	 puts("before DFS");
 	 DFS(left, right, code, root, NV, Y, X);
-	 gettimeofday(&tv2,NULL);
+//	 gettimeofday(&tv2,NULL);
 	 NV->writeToFile("res_DFS.dat");
 	 X->print("res_DFS_nnum",0);
 	 Y->print("res_DFS_Tree",0);
-     tt=0.000001*(tv2.tv_usec-tv1.tv_usec)+(tv2.tv_sec-tv1.tv_sec);
+//     tt=0.000001*(tv2.tv_usec-tv1.tv_usec)+(tv2.tv_sec-tv1.tv_sec);
      fprintf(f_out, "time of work DFS %f sec \n", tt);
      fclose(f_out);
 
@@ -459,19 +459,19 @@ int triangles_test()
 //	 if((f_out=fopen("res_info_w.dat","wt"))==NULL)return 0;
 //	 fprintf(f_out, "graph: |V|= %d |E|= %d \n", M,eds);
 //     puts("file was read");
-	 struct timeval tv1,tv2,tv3;
-     gettimeofday(&tv1,NULL);
+//	 struct timeval tv1,tv2,tv3;
+//     gettimeofday(&tv1,NULL);
      CountTriangles(tab, &eds);
-     gettimeofday(&tv2,NULL);
-	 tt=0.000001*(tv2.tv_usec-tv1.tv_usec)+(tv2.tv_sec-tv1.tv_sec);
+//     gettimeofday(&tv2,NULL);
+//	 tt=0.000001*(tv2.tv_usec-tv1.tv_usec)+(tv2.tv_sec-tv1.tv_sec);
 	 printf("time of work thriangles \t \t %f sec (%i)\n", tt,eds);
 	 puts("countTriangles done");
 
 //	 tab->writeToFile("res_warshall.dat");
-	    gettimeofday(&tv1,NULL);
+	//    gettimeofday(&tv1,NULL);
 	     CountTrianglesOPT(tab, &eds);
-	     gettimeofday(&tv2,NULL);
-		 tt=0.000001*(tv2.tv_usec-tv1.tv_usec)+(tv2.tv_sec-tv1.tv_sec);
+	//     gettimeofday(&tv2,NULL);
+//		 tt=0.000001*(tv2.tv_usec-tv1.tv_usec)+(tv2.tv_sec-tv1.tv_sec);
 		 printf("time of work optimizated thriangles \t \t %f sec (%i)\n", tt,eds);
 		 puts("countTriangles done");
 

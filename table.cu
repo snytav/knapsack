@@ -597,7 +597,7 @@ void Table::readFromFileListAd_or(char *fn,int *eds)
 		i=atoi(str+l);
 		i--;
 //		printf("<%i,%i> \n",n,i);
-		if ((i<M2) and (n<M2)){
+		if ((i<M2) && (n<M2)){
 			tb[n][i]='1';
 			(*eds)++;
 		}
@@ -701,7 +701,7 @@ void Table::readFromFileListAd_unor(char *fn,int *eds)
 		n--;
 		i=atoi(str+l);
 		i--;
-		if ((i<M2) and (n<M2)){
+		if ((i<M2) && (n<M2)){
 			if (n<i) tb[n][i]='1';
 			if (i<n) tb[i][n]='1';
 			(*eds)++;
@@ -891,7 +891,7 @@ void readFromFileListLR(char *fn,int *eds, Table *left, Table *right)
 	if((f = fopen(fn,"rt")) == NULL) return;
 //	puts("set by 0\n");
 
-	while((fgets(str,100,f) != NULL) and (edd<=num))
+	while((fgets(str,100,f) != NULL) && (edd<=num))
 	{
       if(str[0]!='#')
       {
@@ -905,7 +905,7 @@ void readFromFileListLR(char *fn,int *eds, Table *left, Table *right)
 			j++;
 		}
 		i=atoi(str+j);
-		if ((i<= VER) and (n<=VER))
+		if ((i<= VER) && (n<=VER))
 		{
 //			tb[i][n]='1';
 			long_to_binary1(n,sleft,M2);
