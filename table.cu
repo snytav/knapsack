@@ -549,8 +549,8 @@ void Table::readFromFile(char *fn)
 }
 void Table::readFromFileListAd_or(char *fn,int *eds)
 {
-    int ras=max(100,2*VER);
-	char str[ras];
+	int ras = 100;// max(100, 2 * VER);
+	char str[100];
 	FILE *f;
 	int   n,i,k,l;
 	int M2=size;
@@ -754,7 +754,7 @@ void Table::readFromFileListAd_unor(char *fn,int *eds)
 void Table::writeToFile(char *fn)
 {
 //	char tb[M][LENGTH+1];  //table transposed
-	char str[NN1*64]; //LENGTH1+1 дает переполнение стека
+//	char str[NN1*64]; //LENGTH1+1 дает переполнение стека
 	FILE *f;
 	int   n = 0;
 

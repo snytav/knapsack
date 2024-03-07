@@ -91,73 +91,73 @@ void minus_if(In first1, In last1, In first2, Out res,Pred p)
  return res;
 }
 
-int maintest(){
-    int minele;//, maxele;
-    char fout[50];
-         sprintf(fout,"res/test_lib/res_%i_thrust.dat",LENGTH1);
-    FILE *f_out;
-    if((f_out=fopen(fout,"wt"))==NULL)return 0;
-
-    int N=LENGTH1;
-    std::vector<int> a,b(N),res(N);
-    for (int i=0; i<N; i++)
-    {
-      a.push_back(rand());
-      b[i]=a[i];
-    }
-    int j=N/LOOPS;
-    thrust::host_vector<int> h_a(N),h_b(N);
-    thrust::copy(a.begin(), a.end(), h_a.begin());
-    thrust::device_vector<int> d_a = h_a;
-    thrust::device_vector<int> d_b=d_a,d_res(N);
-    thrust::device_vector<int>::iterator iter;
- //   thrust::copy(d_a.begin(),d_a.begin(),d_b.begin());
-
-    cudaEvent_t start, stop;
-//=========================================================================================
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
-    cudaEventRecord(start, 0);
-
-    for (int i=0; i < LOOPS; i++){
-  // ------MINUS_IF-------------------------
-    	thrust::copy(d_a.begin(),d_a.end(),d_b.begin());
-  //  	thrust::transform( d_a.begin(),d_a.end(),d_b.begin(),d_res.begin(),thrust::minus<int>());
-    	 thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),thrust::minus<int>(),_1%2==0);
-    }
-    cudaEventRecord(stop, 0);
-    cudaEventSynchronize(stop);
-
-    float elapsedTime1, totalTime1;
-    cudaEventElapsedTime(&elapsedTime1, start, stop);
-    cudaEventDestroy(start);
-    cudaEventDestroy(stop);
-    totalTime1 = elapsedTime1/(1000*LOOPS);
-    cudaError_t err = cudaGetLastError();
-// 	printf("errors after thrust %d\n",err);
-    fprintf(f_out,"thrust minus_if time = %f\n", totalTime1);
-
-    //========================================================================================
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
-    cudaEventRecord(start, 0);
-
-    for (int i=0; i < LOOPS; i++){
-// ------MINIMUM_IF-------------------------
-    	  thrust::device_vector<int> d_a = h_a;
-        thrust::copy(h_a.begin(), h_a.end(), d_a.begin());
-
-      find_min(d_a,&minele);
-     thrust::device_vector<int> d_b(N);
-      thrust::fill(d_b.begin(),d_b.end(),0);
-//      thrust::copy(d_a.begin(),d_a.begin(),d_b.begin());
-      thrust::transform(d_a.begin(),d_a.end(),d_b.begin(),min_pos(minele));// позиции минимальных элементов
-//      thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),min_pos(minele),_1%2==0);
-//     thrust::transform(thrust::cuda::par, d_a.begin(),d_a.end(),d_b.begin(),d_res.begin(),thrust::minus<int>());
-//       thrust::stable_sort(d_a.begin(),d_a.end(),thrust::greater<int>());
- //   	thrust::copy_if(d_a.begin(),d_a.end(),d_b.begin(),is_even());
- //       thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),thrust::plus<int>(),_1%2==0);
-      }
+//int maintest(){
+//    int minele;//, maxele;
+//    char fout[50];
+//         sprintf(fout,"res/test_lib/res_%i_thrust.dat",LENGTH1);
+//    FILE *f_out;
+//    if((f_out=fopen(fout,"wt"))==NULL)return 0;
+//
+//    int N=LENGTH1;
+//    std::vector<int> a,b(N),res(N);
+//    for (int i=0; i<N; i++)
+//    {
+//      a.push_back(rand());
+//      b[i]=a[i];
+//    }
+//    int j=N/LOOPS;
+//    thrust::host_vector<int> h_a(N),h_b(N);
+//    thrust::copy(a.begin(), a.end(), h_a.begin());
+//    thrust::device_vector<int> d_a = h_a;
+//    thrust::device_vector<int> d_b=d_a,d_res(N);
+//    thrust::device_vector<int>::iterator iter;
+// //   thrust::copy(d_a.begin(),d_a.begin(),d_b.begin());
+//
+//    cudaEvent_t start, stop;
+////=========================================================================================
+//    cudaEventCreate(&start);
+//    cudaEventCreate(&stop);
+//    cudaEventRecord(start, 0);
+//
+//    for (int i=0; i < LOOPS; i++){
+//  // ------MINUS_IF-------------------------
+//    	thrust::copy(d_a.begin(),d_a.end(),d_b.begin());
+//  //  	thrust::transform( d_a.begin(),d_a.end(),d_b.begin(),d_res.begin(),thrust::minus<int>());
+//    	 thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),thrust::minus<int>(),_1%2==0);
+//    }
+//    cudaEventRecord(stop, 0);
+//    cudaEventSynchronize(stop);
+//
+//    float elapsedTime1, totalTime1;
+//    cudaEventElapsedTime(&elapsedTime1, start, stop);
+//    cudaEventDestroy(start);
+//    cudaEventDestroy(stop);
+//    totalTime1 = elapsedTime1/(1000*LOOPS);
+//    cudaError_t err = cudaGetLastError();
+//// 	printf("errors after thrust %d\n",err);
+//    fprintf(f_out,"thrust minus_if time = %f\n", totalTime1);
+//
+//    //========================================================================================
+//    cudaEventCreate(&start);
+//    cudaEventCreate(&stop);
+//    cudaEventRecord(start, 0);
+//
+//    for (int i=0; i < LOOPS; i++){
+//// ------MINIMUM_IF-------------------------
+//    	  thrust::device_vector<int> d_a = h_a;
+//        thrust::copy(h_a.begin(), h_a.end(), d_a.begin());
+//
+//      find_min(d_a,&minele);
+//     thrust::device_vector<int> d_b(N);
+//      thrust::fill(d_b.begin(),d_b.end(),0);
+////      thrust::copy(d_a.begin(),d_a.begin(),d_b.begin());
+//      thrust::transform(d_a.begin(),d_a.end(),d_b.begin(),min_pos(minele));// позиции минимальных элементов
+////      thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),min_pos(minele),_1%2==0);
+////     thrust::transform(thrust::cuda::par, d_a.begin(),d_a.end(),d_b.begin(),d_res.begin(),thrust::minus<int>());
+////       thrust::stable_sort(d_a.begin(),d_a.end(),thrust::greater<int>());
+// //   	thrust::copy_if(d_a.begin(),d_a.end(),d_b.begin(),is_even());
+// //       thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),thrust::plus<int>(),_1%2==0);
+//      }
 
     cudaEventRecord(stop, 0);
     cudaEventSynchronize(stop);
