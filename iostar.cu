@@ -210,7 +210,7 @@ void readfromDimageC(char *fn, Table *T)
 // read matrix of weights from dimage format ('a' l r w)
 {
 	int ras=100;
-	    char str[ras];
+	    char str[1000];
 
 		FILE *f;
 		int   n,i,j,k,l;
@@ -296,7 +296,7 @@ void readfromDimageL(char *fn, Table *L, Table *R)
 // read list of unweighed arcs from dimage format ('a' l r w)
 {
 	int ras=100;
-	    char str[ras];
+	    char str[1000];
 
 		FILE *f;
 		int   n,i,j,k,l;
@@ -385,7 +385,7 @@ void readfromDimageL(char *fn, Table *L, Table *R, Table *W)
 // read list of weighted arcs from dimage format ('a' l r w)
 {
 	int ras=100;
-	    char str[ras];
+	    char str[1000];
 
 		FILE *f;
 		int   n,i,j,k,l;
@@ -742,7 +742,7 @@ void writetoDimageL(char *fn, Table *L, Table *R, Table *W)
 void readfromDimageWC(char *fn, Table *T, Table *Cost)
 {
 	int ras=100;
-	    char str[ras];
+	    char str[1000];
 
 		FILE *f;
 		int   n,i,j,k,l;

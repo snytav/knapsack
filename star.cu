@@ -822,6 +822,7 @@ puts("T before copy R3.dat");
 __global__ void dijkstra_opt1(LongPointer *d_T,int k, int h, LongPointer *d_R1,unsigned long long int *d_U,unsigned long long int *d_inf,unsigned long long int *d_X)
 {
 //(T,k,h,R1,U,inf,X)
+	// (LongPointer *d_t, int j, int h, LongPointer *d_f)
 	tcopy1(d_T,k,h,d_R1);
 	match(d_R1,d_U,d_inf,d_X,h);
 	_xor(d_X,d_U);

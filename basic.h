@@ -68,7 +68,7 @@ __device__ void tcopy(LongPointer *d_t, LongPointer *d_f,int r,int size);
 
 void TCOPY1(Table *T,int j, int h, Table *F,int k=1);// Копирует вертикальную полосу из T в F
 __global__ void tcopy1_kernel(LongPointer *d_t, int j,int h, LongPointer *d_f,int size);//<<<NN,k>>> k=1,...,h
-__device__ void tcopy1(LongPointer *d_t, int j, int h, LongPointer *d_f,int size);
+__device__ void tcopy1(LongPointer* d_t, int j, int h, LongPointer* d_f); //, int size);
 
 void TCOPY2(Table *T,int j, int h, Table *F,int k=1);// Копирует T как вертикальную полосу в F
 __global__ void tcopy2_kernel(LongPointer *d_t, int j,int h, LongPointer *d_f,int size);//<<<NN,k>>> k=1,...,h

@@ -769,6 +769,7 @@ void Table::writeToFile(char *fn)
 //		GetRow(s,n+1);
 //   printf("n=%d",n);
 //#ifdef tt
+		char str[1000];
 		s->convert_to_string(str);
 
 //		s->print("after_slice",0);

@@ -293,7 +293,10 @@ int size=T->size;
 
 
  // Z->print("MIN:Z",0);
- min_part1<<<NN1,1>>>(d_t,d_y,i,d_z,d_first_non_zero);
+ 
+ //(LongPointer * d_tab, unsigned long long* d_y, int i, unsigned long long int* d_z, int* d_first_non_zero, int size)//<<<NN,1>>>
+
+ min_part1<<<NN1,1>>>(d_t,d_y,i,d_z,d_first_non_zero,size);
 // Y->print("MIN:Y",0);
 // Z->print("MIN:Z",0);
  for(i=1;i<=size;i++)
@@ -301,7 +304,7 @@ int size=T->size;
 	 first(d_y,NN1,d_first_non_zero,NN1);
 
      //min_part1<<<blocks1,threads1>>>(d_t,d_y,i,d_z,d_first_non_zero);
-	 min_part1<<<NN1,1>>>(d_t,d_y,i,d_z,d_first_non_zero);
+	 min_part1<<<NN1,1>>>(d_t,d_y,i,d_z,d_first_non_zero,size);
 //err = cudaGetLastError();
 //printf("%i MIN %d , %s \n",i,err,cudaGetErrorString(err));
 //	 Y->print("MIN:Y",0);
@@ -320,11 +323,11 @@ LongPointer *d_t;
  Z->assign(X);
  cudaMalloc(&d_first_non_zero,sizeof(int));
  int i=0;
- min_part1<<<blocks1,threads1>>>(d_t,d_y,i,d_z,d_first_non_zero);
+ min_part1<<<blocks1,threads1>>>(d_t,d_y,i,d_z,d_first_non_zero,size);
  for(i=1;i<size;i++)
 {
 	 first(d_y,NN1,d_first_non_zero,NN1);
-     min_part1<<<blocks1,threads1>>>(d_t,d_y,i,d_z,d_first_non_zero);
+     min_part1<<<blocks1,threads1>>>(d_t,d_y,i,d_z,d_first_non_zero,size);
  }
 };
 

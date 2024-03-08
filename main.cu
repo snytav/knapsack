@@ -350,7 +350,9 @@ unsigned long long int *d_x,*d_z, *d_w;
 
 	     cudaEventRecord(start, 0);
 //	     for( int i=0;i<1000;i++)
-	    	 subtv_kernel<<<blocks1,threads1>>>(d_tab1,d_tab,h,d_x,d_res,d_z);
+//                                             (LongPointer *d_t, LongPointer *d_r,int k, unsigned long long int *d_x, LongPointer *d_s,unsigned long long int *d_m)
+
+	    	 subtv_kernel<<<blocks1,threads1>>>(d_tab1,           d_tab,               h,                         d_x,            d_res,                        d_z);
 	     cudaEventRecord(stop, 0);
 	     cudaEventSynchronize(stop);
    	     cudaEventElapsedTime(&elapsedTime1, start, stop);// в милисекундах!
