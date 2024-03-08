@@ -10,7 +10,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/time.h>
+//#include <sys/time.h>
 #include <cuda.h>
 #include "basic.h"
 #include "star_kernel.h"
@@ -664,7 +664,7 @@ void TCOPY1(Table *T,int j, int h, Table *F,int k)
 
 	d_t=T->get_device_pointer();
 	d_f=F->get_device_pointer();
-	if ((k==1)or(k>h))k=h;
+	if ((k==1) || (k>h))k=h;
 //	printf("=============================TCOPY1=%i<%i,%i>======================\n",j,NN,k);
 	 tcopy1_kernel<<<NN,k>>>(d_t,j,h,d_f);
 //	  err = cudaGetLastError();
@@ -698,7 +698,7 @@ void TCOPY2(Table *T,int j, int h, Table *F,int k)
 	int NN=(T->length-1)/SIZE_OF_LONG_INT+1;
 	d_t=T->get_device_pointer();
 	d_f=F->get_device_pointer();
-	if ((k==1)or(k>h))k=h;
+	if ((k==1) || (k>h))k=h;
 //printf(" TCOPY2 NN=%i \t k=%i \t",NN,k);
 	 tcopy2_kernel<<<NN,k>>>(d_t,j,h,d_f);
 //puts("TCOPY2 done");
@@ -1218,7 +1218,7 @@ void TCOPY3(Table *T,int j, int h, Table *F,int k)
 	d_t=T->get_device_pointer();
 	d_f=F->get_device_pointer();
 	int h1=F->size;
-	if ((k==1)or(k>h1))k=h1;
+	if ((k==1) || (k>h1))k=h1;
 //printf(" TCOPY2 NN=%i \t k=%i \t",NN,k);
 	 tcopy3_kernel<<<NN,k>>>(d_t,j,h,d_f);
 //puts("TCOPY2 done");
@@ -1247,7 +1247,7 @@ void TCOPY4(Table *T,int j, int h, Table *F,int k)// Копирует T как �
 	d_t=T->get_device_pointer();
 	d_f=F->get_device_pointer();
 	int h1=F->size;
-	if ((k==1)or(k>h1))k=h1;
+	if ((k==1) || (k>h1))k=h1;
 //printf(" TCOPY2 NN=%i \t k=%i \t",NN,k);
 	 tcopy4_kernel<<<NN,k>>>(d_t,j,h,d_f);
 //puts("TCOPY4 done");

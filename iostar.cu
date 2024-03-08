@@ -3,8 +3,8 @@
 #include "table.h"
 #include "iostar.h"
 #include <stdio.h>
-//#include <stdlib.h>
-#include <sys/time.h>
+#include <stdlib.h>
+//#include <sys/time.h>
 
 extern char **tb;//[LENGTH1][M]![LENGTH1][LENGTH1+1];  //table transposed
 
@@ -16,8 +16,9 @@ int size_tt;
 
 void readfromDimageA(char *fn, Table *T )
 // read matrix of adjacency from dimage format ('a' l r w)
-{	int ras=max(100,M+1);
-    char str[ras];
+{
+	int ras = 100;// , M + 1);
+    char str[1000];
 
 	FILE *f;
 	int   n,i,k,l;
@@ -56,7 +57,7 @@ void readfromDimageA(char *fn, Table *T )
 	n--;
 	i=atoi(str+l+2);
 	i--;
-	if ((i<M2) and (n<M2)){
+	if ((i<M2) && (n<M2)){
 		 tb[n][i]='1';
 
 //		 puts(str);
@@ -123,7 +124,7 @@ void readfromDimageW(char *fn, Table *T)
 // read matrix of weights from dimage format ('a' l r w)
 {
 	int ras=100;
-	    char str[ras];
+	char str[1000];
 
 		FILE *f;
 		int   n,i,j,k,l;
@@ -345,7 +346,7 @@ void readfromDimageL(char *fn, Table *L, Table *R)
 //		i;
 //		j=atoi(str+l+3);
 //	 printf("<%i,%i> \n",n,i);
-		if ((i<VER) and (n<VER)){
+		if ((i<VER) && (n<VER)){
 			 tt_left[eds]=n;
 			 tt_right[eds]=i;
 	//		 puts(str);
@@ -433,7 +434,7 @@ void readfromDimageL(char *fn, Table *L, Table *R, Table *W)
 					l++;
 				}
 		j=atoi(str+l+3);
-		if ((i<VER) and (n<VER)){
+		if ((i<VER) && (n<VER)){
 			 tt_left[eds]=n;
 			 tt_right[eds]=i;
 			 tt_weight[eds]=j;

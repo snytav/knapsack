@@ -1,3 +1,4 @@
+#include<cuda.h>
 #include <stdio.h>
 #include <thrust/device_vector.h>
 #include <thrust/extrema.h>
@@ -159,84 +160,84 @@ void minus_if(In first1, In last1, In first2, Out res,Pred p)
 // //       thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),thrust::plus<int>(),_1%2==0);
 //      }
 
-    cudaEventRecord(stop, 0);
-    cudaEventSynchronize(stop);
- //   float elapsedTime1, totalTime1;
-    cudaEventElapsedTime(&elapsedTime1, start, stop);
-    cudaEventDestroy(start);
-    cudaEventDestroy(stop);
-    totalTime1 = elapsedTime1/(1000*LOOPS);
-//    cudaError_t
-    err = cudaGetLastError();
+//    cudaEventRecord(stop, 0);
+//    cudaEventSynchronize(stop);
+// //   float elapsedTime1, totalTime1;
+//    cudaEventElapsedTime(&elapsedTime1, start, stop);
+//    cudaEventDestroy(start);
+//    cudaEventDestroy(stop);
+//    totalTime1 = elapsedTime1/(1000*LOOPS);
+////    cudaError_t
+//    err = cudaGetLastError();
  //	printf("errors after thrust %d\n",err);
 
 //    printf("thrust min element = %d\n", minele);
-    fprintf(f_out,"thrust min time = %f\n", totalTime1);        //
+    //fprintf(f_out,"thrust min time = %f\n", totalTime1);        //
 
-    //=========================================================================================
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
+    ////=========================================================================================
+    //cudaEventCreate(&start);
+    //cudaEventCreate(&stop);
 
-    cudaEventRecord(start, 0);
+    //cudaEventRecord(start, 0);
 
-    for (int i=0; i < LOOPS; i++){
-// ------MATCH-------------------------
-    	  thrust::device_vector<int> d_a = h_a;
-        thrust::copy(h_a.begin(), h_a.end(), d_a.begin());
-
-//      find_min(d_a,&minele);
-     thrust::device_vector<int> d_b(N);
-      thrust::fill(d_b.begin(),d_b.end(),0);
-//      thrust::copy(d_a.begin(),d_a.begin(),d_b.begin());
- //     iter = thrust::find_if(a.begin(), a.end(),[i](const int x){ return x == i; } );
-      thrust::transform(d_a.begin(),d_a.end(),d_b.begin(),min_pos(i));
+//    for (int i=0; i < LOOPS; i++){
+//// ------MATCH-------------------------
+//    	  thrust::device_vector<int> d_a = h_a;
+//        thrust::copy(h_a.begin(), h_a.end(), d_a.begin());
+//
+////      find_min(d_a,&minele);
+//     thrust::device_vector<int> d_b(N);
+//      thrust::fill(d_b.begin(),d_b.end(),0);
+////      thrust::copy(d_a.begin(),d_a.begin(),d_b.begin());
+// //     iter = thrust::find_if(a.begin(), a.end(),[i](const int x){ return x == i; } );
+//      thrust::transform(d_a.begin(),d_a.end(),d_b.begin(),min_pos(i));
 
 //     thrust::transform(thrust::cuda::par, d_a.begin(),d_a.end(),d_b.begin(),d_res.begin(),thrust::minus<int>());
 //       thrust::stable_sort(d_a.begin(),d_a.end(),thrust::greater<int>());
  //   	thrust::copy_if(d_a.begin(),d_a.end(),d_b.begin(),is_even());
  //       thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),thrust::plus<int>(),_1%2==0);
-      }
+//      }
 
-    cudaEventRecord(stop, 0);
-    cudaEventSynchronize(stop);
- //   float elapsedTime1, totalTime1;
-    cudaEventElapsedTime(&elapsedTime1, start, stop);
-    cudaEventDestroy(start);
-    cudaEventDestroy(stop);
-    totalTime1 = elapsedTime1/(1000*LOOPS);
-//    cudaError_t
-    err = cudaGetLastError();
+//    cudaEventRecord(stop, 0);
+//    cudaEventSynchronize(stop);
+// //   float elapsedTime1, totalTime1;
+//    cudaEventElapsedTime(&elapsedTime1, start, stop);
+//    cudaEventDestroy(start);
+//    cudaEventDestroy(stop);
+//    totalTime1 = elapsedTime1/(1000*LOOPS);
+////    cudaError_t
+//    err = cudaGetLastError();
  //	printf("errors after thrust %d\n",err);
 
 //    printf("thrust min element = %d\n", minele);
-    fprintf(f_out,"thrust match_if time = %f\n", totalTime1);        //
+//    fprintf(f_out,"thrust match_if time = %f\n", totalTime1);        //
 
 //=========================================================================================
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
-    cudaEventRecord(start, 0);
-    for (int i=0; i < LOOPS; i++){
-// ------COPY_IF-------------------------
-    	  thrust::device_vector<int> d_a = h_a;
-//        thrust::copy(h_a.begin(), h_a.end(), d_a.begin());
-     thrust::device_vector<int> d_b(N);
-    	thrust::copy_if(d_a.begin(),d_a.end(),d_b.begin(),is_even());
- //       thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),thrust::plus<int>(),_1%2==0);
-      }
+//    cudaEventCreate(&start);
+//    cudaEventCreate(&stop);
+//    cudaEventRecord(start, 0);
+//    for (int i=0; i < LOOPS; i++){
+//// ------COPY_IF-------------------------
+//    	  thrust::device_vector<int> d_a = h_a;
+////        thrust::copy(h_a.begin(), h_a.end(), d_a.begin());
+//     thrust::device_vector<int> d_b(N);
+//    	thrust::copy_if(d_a.begin(),d_a.end(),d_b.begin(),is_even());
+// //       thrust::transform_if(d_a.begin(),d_a.end(),d_b.begin(),d_a.begin(), d_res.begin(),thrust::plus<int>(),_1%2==0);
+//      }
 
-    cudaEventRecord(stop, 0);
-    cudaEventSynchronize(stop);
-//    float elapsedTime1, totalTime1;
-    cudaEventElapsedTime(&elapsedTime1, start, stop);
-    cudaEventDestroy(start);
-    cudaEventDestroy(stop);
-    totalTime1 = elapsedTime1/(1000*LOOPS);
-    //cudaError_t
-    err = cudaGetLastError();
+//    cudaEventRecord(stop, 0);
+//    cudaEventSynchronize(stop);
+////    float elapsedTime1, totalTime1;
+//    cudaEventElapsedTime(&elapsedTime1, start, stop);
+//    cudaEventDestroy(start);
+//    cudaEventDestroy(stop);
+//    totalTime1 = elapsedTime1/(1000*LOOPS);
+//    //cudaError_t
+//    err = cudaGetLastError();
  //	printf("errors after thrust %d\n",err);
 
 //    printf("thrust min element = %d\n", minele);
-    fprintf(f_out,"thrust copy_if time = %f\n", totalTime1);        //
+   // fprintf(f_out,"thrust copy_if time = %f\n", totalTime1);        //
 
 //    thrust::copy(d_b.begin(),d_b.end(),b.begin());
      clock_t t;
@@ -250,47 +251,49 @@ void minus_if(In first1, In last1, In first2, Out res,Pred p)
     printf("STL sort time = %f\n", ((float)t)/(CLOCKS_PER_SEC));
 */
 
-    for (int i = 0; i<LOOPS; i++){
- //     resultmax = std::max_element(a.begin(), a.end());
-     resultmin = std::min_element(a.begin(), a.end());
+ //   for (int i = 0; i<LOOPS; i++){
+ ////     resultmax = std::max_element(a.begin(), a.end());
+ //    resultmin = std::min_element(a.begin(), a.end());
 
- //   	std::transform(a.begin(),a.end(),b.begin(),res.begin(),std::minus<int>());
-  //  	resultmax=std::lower_bound(a.begin(), a.end(),b[N-j*i]);
-    //	std::copy(a.begin(),a.end(),b.begin());
- //   	minus_if(a.begin(),a.end(),b.begin(),res.begin(),is_even());
- //   	std::transform_if(a.begin(),a.end(),b.begin(),a.begin(), res.begin(),std::minus<int>(),_1%2==0);
-     }
-    t = clock() - t;
+ ////   	std::transform(a.begin(),a.end(),b.begin(),res.begin(),std::minus<int>());
+ // //  	resultmax=std::lower_bound(a.begin(), a.end(),b[N-j*i]);
+ //   //	std::copy(a.begin(),a.end(),b.begin());
+ ////   	minus_if(a.begin(),a.end(),b.begin(),res.begin(),is_even());
+ ////   	std::transform_if(a.begin(),a.end(),b.begin(),a.begin(), res.begin(),std::minus<int>(),_1%2==0);
+ //    }
+ //   t = clock() - t;
 //    resultmax=resultmin;
  //   printf("STL sort= %d, max element = %d\n", b[j], *resultmax);
-    fprintf(f_out,"STL min time = %f\n", ((float)t)/(CLOCKS_PER_SEC*LOOPS));
+//    fprintf(f_out,"STL min time = %f\n", ((float)t)/(CLOCKS_PER_SEC*LOOPS));
 //====================================================================================
      t = clock();
      //copy_if(a.begin(),a.end(),b.begin(),is_even());
-     for (int i = 0; i<LOOPS; i++) std::copy_if(a.begin(),a.end(),b.begin(),is_even());
+     int i;
+//     for(i = 0;i<LOOPS; i++) 
+  //       std::copy_if(a.begin(),a.end(),b.begin(),is_even());
 
-     t = clock() - t;
+     //t = clock() - t;
      //    resultmax=resultmin;
       //   printf("STL sort= %d, max element = %d\n", b[j], *resultmax);
-         fprintf(f_out,"STL copy_if time = %f\n", ((float)t)/(CLOCKS_PER_SEC*LOOPS));
+//         fprintf(f_out,"STL copy_if time = %f\n", ((float)t)/(CLOCKS_PER_SEC*LOOPS));
 
           t = clock();
-    	 std::transform(a.begin(),a.end(),b.begin(),res.begin(),std::minus<int>());
-     t = clock() - t;
-     fprintf(f_out,"STL minus time = %f\n", ((float)t)/(CLOCKS_PER_SEC));//*LOOPS));*/
+    //	 std::transform(a.begin(),a.end(),b.begin(),res.begin(),std::minus<int>());
+    // t = clock() - t;
+//     fprintf(f_out,"STL minus time = %f\n", ((float)t)/(CLOCKS_PER_SEC));//*LOOPS));*/
  //    puts("d_b");
  //   thrust::copy(d_res.begin(), d_res.end(), std::ostream_iterator<int>(std::cout, "\n"));
 //    thrust::copy(d_res.begin(),d_res.end(),res.begin());
 //======================================================================================
      t = clock();
       //copy_if(a.begin(),a.end(),b.begin(),is_even());
-      for (int i = 0; i<LOOPS; i++)
-     	 std::find(a.begin(),a.end(),10);
+//      for (int i = 0; i<LOOPS; i++)
+//     	 std::find(a.begin(),a.end(),10);
      	 //transform(a.begin(),a.end(),b.begin(),res.begin(),std::minus<int>());
       t = clock() - t;
-      fprintf(f_out,"STL match time = %f\n", ((float)t)/(CLOCKS_PER_SEC));//*LOOPS));*/
+//      fprintf(f_out,"STL match time = %f\n", ((float)t)/(CLOCKS_PER_SEC));//*LOOPS));*/
 // for(int i=0;i<N;i++) printf("a,b[%i]=%i res=%i\n",i,b[i],res[i]);
 
 //    thrust::copy(d_a.begin(), d_a.end(), std::ostream_iterator<int>(std::cout, "\n"));
-  return 0;
-}
+//  return 0;
+//}
